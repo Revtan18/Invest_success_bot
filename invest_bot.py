@@ -19,6 +19,19 @@ async def start(event):
     raise events.StopPropagation
 
 @bot.on(events.NewMessage(pattern='/newcheck'))
+async def invest(event):
+    await event.respond("Для начала введи сумму, с которой хочешь начать инвестировать")
+    with event.conversation(chat) as conv:
+        conv.send_message('Для начала введи сумму, с которой хочешь начать инвестировать')
+        first_deposit = conv.get_response()
+
+        conv.send_message("Сколько ты готов вкладывать ежемесячно?")
+        deposit = conv.get_response()
+
+        conv.send_message(f"Ваш стартовый - {first_deposit}, и не стратовый - {deposit}")
+
+
+"""
 async def first_deposit(event):
     await event.respond("Для начала введи сумму, с которой хочешь начать инвестировать")
     first_deposit = event.raw_text
@@ -37,10 +50,11 @@ async def growth(event):
     await event.respond(f"Ваш стартовый - {first_deposit}, и не стратовый - {deposit}")
     raise events.StopPropagation
 
+@bot.on(events.NewMessage)
 async def year(event):
     growth = event.raw_text
     await event.respond("Введите количество месяцев, которое вы хотите инвестировать:")
-    raise events.StopPropagation
+    raise events.StopPropagation"""
 
 
 
